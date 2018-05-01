@@ -61,6 +61,7 @@ static const gchar *vol_control_commands[] = {
 	"gnome-alsamixer",
 	"xfce4-mixer",
 	"alsamixergui",
+	"alsamixer",
 	NULL
 };
 
@@ -185,7 +186,9 @@ prefs_get_string(const gchar *key, const gchar *def)
 	 */
 	if (!g_strcmp0(key, "VolumeControlCommand")) {
 		const gchar *cmd = find_vol_control_command();
-		if (cmd)
+		if (cmd == "alsamixer")
+			return g_strdup("xterm -e alsamixer");
+		else if (cmd)
 			return g_strdup(cmd);
 	}
 
